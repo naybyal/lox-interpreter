@@ -6,54 +6,83 @@ use std::process::exit;
 fn tokenize(file_contents: &str) -> i32 {
     let mut result = 0;
     let mut lines = 1; 
-    for character in file_contents.chars() {
+    let mut chars = file_contents.chars().peekable();
+
+    while let Some(&character) = chars.peek() {
         match character {
             '\n' => {
                 lines += 1;
+                chars.next();
             },
             '*' => {
                 println!("STAR {} null", character);
+                chars.next();
             },
             '+' => {
                 println!("PLUS {} null", character);
+                chars.next();
             },
             ',' => {
                 println!("COMMA {} null", character);
+                chars.next();
             },
             '-' => {
                 println!("MINUS {} null", character);
+                chars.next();
             },
             '.' => {
                 println!("DOT {} null", character);
+                chars.next();
             },
             '/' => {
                 println!("SLASH {} null", character);
+                chars.next();
             },
             ';' => {
                 println!("SEMICOLON {} null", character);
+                chars.next();
             },
             '(' => {
                 println!("LEFT_PAREN {} null", character);
+                chars.next();
             },
             ')' => {
                 println!("RIGHT_PAREN {} null", character);
+                chars.next();
             },
             '{' => {
                 println!("LEFT_BRACE {} null", character);
+                chars.next();
             },
             '}' => {
                 println!("RIGHT_BRACE {} null", character);
+                chars.next();
+            },
+            '=' => {
+                chars.next(); // consume '='
+                if let Some(&next_char) = chars.peek() {
+                    if next_char == '=' {
+                        chars.next(); // consume second '='
+                        println!("EQUAL_EQUAL == null");
+                    } else {
+                        println!("EQUAL = null");
+                    }
+                } else {
+                    println!("EQUAL = null");
+                }
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
                 result = 65;
+                chars.next();
             }
         }
     }
 
     println!("EOF  null");
-    return result;
+    result
 }
+
 
 fn main() {
     let args: Vec<String> = env::args().collect();
