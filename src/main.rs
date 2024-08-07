@@ -28,6 +28,33 @@ fn main() {
             } else {
                 println!("EOF  null"); // Placeholder, remove this line when implementing the scanner
             }
+
+            for character in file_contents {
+                match character {
+                    ' ' | '\t' | '\n' => {
+                        // Ignore whitespace
+                    },
+                    // 'a'..='z' | 'A'..='Z' => {
+                    //     println!("IDENTIFIER  {}", character);
+                    // },
+                    // '0'..='9' => {
+                    //     println!("NUMBER  {}", character);
+                    // },
+                    '+' | '-' | '*' | '/'  | '=' => {
+                        writeln!("OPERATOR  {}", character).unwrap();
+                    },
+                    '(' => {
+                        writeln!("LEFT_PAREN {} null", character).unwrap();
+                    },
+                    ')' => {
+                        writeln!("RIGHT_PAREN {} null", character).unwrap();
+                    },
+                    _ => {
+                        writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
+                        return;
+                    }
+                }
+            }
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
