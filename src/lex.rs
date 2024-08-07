@@ -168,7 +168,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     number.push('0');
                 }
                     
-                println!("NUMBER {} {}", number, lexeme);
+                println!("NUMBER {} {}", lexeme, number);
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
