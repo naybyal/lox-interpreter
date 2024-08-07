@@ -163,8 +163,9 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     }
                 }
 
-                if is_float && number.ends_with('.') 
+                if is_float && number.ends_with('.') {
                     number.push(0);
+                }
                     
                 println!("NUMBER {} {}.", number, number);
             },
