@@ -84,6 +84,32 @@ fn tokenize(file_contents: &str) -> i32 {
                     println!("BANG ! null");
                 }
             },
+            '<' => {
+                chars.next(); 
+                if let Some(&next_char) = chars.peek() {
+                    if next_char == '=' {
+                        chars.next(); 
+                        println!("LESS_EQUAL <= null");
+                    } else {
+                        println!("LESS < null");
+                    }
+                } else {
+                    println!("LESS < null");
+                }
+            },
+            '>' => {
+                chars.next(); 
+                if let Some(&next_char) = chars.peek() {
+                    if next_char == '=' {
+                        chars.next(); 
+                        println!("GREATER_EQUAL >= null");
+                    } else {
+                        println!("GREATER > null");
+                    }
+                } else {
+                    println!("GREATER > null");
+                }
+            },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
                 result = 65;
