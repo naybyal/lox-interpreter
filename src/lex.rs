@@ -163,7 +163,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     }
                 }
 
-                println!("NUMBER {} {}", number, number);
+                println!("NUMBER {}", number);
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
