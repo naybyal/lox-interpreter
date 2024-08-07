@@ -1,9 +1,11 @@
 use std::env;
 use std::fs;
 use std::io::{self, Write};
+use std::process::exit;
 
-fn tokenize(file_contents: &str) {
-    let mut lines = 0;
+fn tokenize(file_contents: &str) -> i32 {
+    let mut result = 0;
+    let mut lines = 1; 
     for character in file_contents.chars() {
         match character {
             '\n' => {
@@ -42,13 +44,15 @@ fn tokenize(file_contents: &str) {
             '}' => {
                 println!("RIGHT_BRACE {} null", character);
             },
-            a => {
-                writeln!(io::stderr(), "[Line {}] Unexpected character: {}", lines, a).unwrap();
-                return 65;
+            _ => {
+                eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
+                result = 65;
             }
         }
     }
-    return 0;
+
+    println!("EOF  null");
+    return result;
 }
 
 fn main() {
@@ -71,14 +75,12 @@ fn main() {
                 String::new()
             });
 
-            // Uncomment this block to pass the first stage
-            // if !file_contents.is_empty() {
-            //     panic!("Scanner not implemented");
-            // } else {
-            //     println!("EOF  null"); // Placeholder, remove this line when implementing the scanner
-            // }
-            tokenize(&file_contents);
-            println!("EOF  null");
+            if !file_contents.is_empty() {
+                let result = tokenize(&file_contents);
+                exit(result);
+            } else {
+                println!("EOF  null");
+            }
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
