@@ -2,6 +2,35 @@ use std::env;
 use std::fs;
 use std::io::{self, Write};
 
+fn tokenize(file_contents: &str) {
+    for character in file_contents.chars() {
+        match character {
+            ' ' | '\t' | '\n' => {
+                // Ignore whitespace
+            },
+            // 'a'..='z' | 'A'..='Z' => {
+            //     println!("IDENTIFIER  {}", character);
+            // },
+            // '0'..='9' => {
+            //     println!("NUMBER  {}", character);
+            // },
+            '+' | '-' | '*' | '/'  | '=' => {
+                println!("OPERATOR  {}", character);
+            },
+            '(' => {
+                println!("LEFT_PAREN {} null", character);
+            },
+            ')' => {
+                println!("RIGHT_PAREN {} null", character);
+            },
+            _ => {
+                writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
+                return;
+            }
+        }
+    }
+}
+
 fn main() {
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
@@ -28,33 +57,7 @@ fn main() {
             } else {
                 println!("EOF  null"); // Placeholder, remove this line when implementing the scanner
             }
-
-            for character in file_contents.chars() {
-                match character {
-                    ' ' | '\t' | '\n' => {
-                        // Ignore whitespace
-                    },
-                    // 'a'..='z' | 'A'..='Z' => {
-                    //     println!("IDENTIFIER  {}", character);
-                    // },
-                    // '0'..='9' => {
-                    //     println!("NUMBER  {}", character);
-                    // },
-                    '+' | '-' | '*' | '/'  | '=' => {
-                        println!("OPERATOR  {}", character);
-                    },
-                    '(' => {
-                        println!("LEFT_PAREN {} null", character);
-                    },
-                    ')' => {
-                        println!("RIGHT_PAREN {} null", character);
-                    },
-                    _ => {
-                        writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
-                        return;
-                    }
-                }
-            }
+            tokenize(&file_contents);
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
