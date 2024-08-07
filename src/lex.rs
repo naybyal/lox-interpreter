@@ -149,8 +149,6 @@ pub fn tokenize(file_contents: &str) -> i32 {
             },
             '0'..='9' => {
                 let mut number = String::new();
-                l
-
                 while let Some(&next_char) = chars.peek() {
                     let mut is_float = false;
                     if next_char.is_digit(10)  {
