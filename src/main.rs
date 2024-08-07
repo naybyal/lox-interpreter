@@ -29,7 +29,7 @@ fn main() {
                 println!("EOF  null"); // Placeholder, remove this line when implementing the scanner
             }
 
-            for character in &file_contents {
+            for character in file_contents.chars() {
                 match character {
                     ' ' | '\t' | '\n' => {
                         // Ignore whitespace
