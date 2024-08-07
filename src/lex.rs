@@ -162,12 +162,14 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
+                let mut lexeme = String::new(number);
 
                 if is_float && number.ends_with('.') {
+                    lexeme = number;
                     number.push('0');
                 }
                     
-                println!("NUMBER {} {}", number, number);
+                println!("NUMBER {} {}", number, lexeme);
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
