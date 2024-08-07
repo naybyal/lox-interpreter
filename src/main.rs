@@ -23,6 +23,12 @@ fn tokenize(file_contents: &str) {
             ')' => {
                 println!("RIGHT_PAREN {} null", character);
             },
+            '{' => {
+                println!("LEFT_BRACE {} null", character);
+            },
+            '}' => {
+                println!("RIGHT_BRACE {} null", character);
+            },
             _ => {
                 writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
                 return;
