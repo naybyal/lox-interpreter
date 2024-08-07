@@ -34,10 +34,6 @@ fn tokenize(file_contents: &str) -> i32 {
                 println!("DOT {} null", character);
                 chars.next();
             },
-            '/' => {
-                println!("SLASH {} null", character);
-                chars.next();
-            },
             ';' => {
                 println!("SEMICOLON {} null", character);
                 chars.next();
@@ -108,6 +104,24 @@ fn tokenize(file_contents: &str) -> i32 {
                     }
                 } else {
                     println!("GREATER > null");
+                }
+            },
+            '/' => {
+                chars.next();
+                if let Some(&next_char) = chars.peek() {
+                    if next_char == '/' {
+                        chars.next();
+                        while let Some(&next_char) = chars.peek() {
+                            if next_char == '\n' {      // handling a comment
+                                break;
+                            }
+                            chars.next();
+                        }
+                    } else {
+                        println!("SLASH / null");
+                    }
+                } else {
+                    println!("SLASH / null");
                 }
             },
             _ => {
