@@ -7,7 +7,7 @@ fn tokenize(file_contents: &str) {
     for character in file_contents.chars() {
         match character {
             '\n' => {
-                lines++;
+                lines += 1;
             },
             '*' => {
                 println!("STAR {} null", character);
