@@ -147,6 +147,21 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     result = 65;
                 }
             },
+            '0'..='9' => {
+                let mut number = String::new();
+                let start_line = lines;
+
+                while let Some(&next_char) = chars.peek() {
+                    if next_char.is_digit(10)  {
+                        number.push(next_char);
+                        chars.next();
+                    } else {
+                        break;
+                    }
+                }
+
+                println!("NUMBER {} {}", number, number);
+            },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
                 result = 65;
