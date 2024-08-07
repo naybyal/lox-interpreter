@@ -8,15 +8,28 @@ fn tokenize(file_contents: &str) {
             ' ' | '\t' | '\n' => {
                 // Ignore whitespace
             },
-            // 'a'..='z' | 'A'..='Z' => {
-            //     println!("IDENTIFIER  {}", character);
-            // },
-            // '0'..='9' => {
-            //     println!("NUMBER  {}", character);
-            // },
-            '+' | '-' | '*' | '/'  | '=' => {
-                println!("OPERATOR  {}", character);
+            '*' => {
+                println!("STAR {} null", character);
             },
+            '+' => {
+                println!("PLUS {} null", character);
+            },
+            ',' => {
+                println!("COMMA {} null", character);
+            },
+            '-' => {
+                println!("MINUS {} null", character);
+            },
+            '.' => {
+                println!("DOT {} null", character);
+            },
+            '/' => {
+                println!("SLASH {} null", character);
+            },
+            ';' => {
+                println!("SEMICOLON {} null", character);
+            },
+            
             '(' => {
                 println!("LEFT_PAREN {} null", character);
             },
