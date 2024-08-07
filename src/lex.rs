@@ -150,11 +150,12 @@ pub fn tokenize(file_contents: &str) -> i32 {
             '0'..='9' => {
                 let mut number = String::new();
                 let mut is_float = false;
+
                 while let Some(&next_char) = chars.peek() {
-                    if next_char.is_digit(10)  {
+                    if next_char.is_digit(10) {
                         number.push(next_char);
                         chars.next();
-                    } else if next_char == '.' && !is_float{
+                    } else if next_char == '.' && !is_float {
                         is_float = true;
                         number.push(next_char);
                         chars.next();
@@ -162,12 +163,19 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                if is_float && number.ends_with('.') {
-                    number.pop(); 
-                    println!("NUMBER {} {}.0", number, number);
-                    println!("DOT . null");
+
+                if is_float {
+                    // Floating point number, possibly ending with a dot
+                    if number.ends_with('.') {
+                        number.pop(); // Remove the trailing dot
+                        println!("NUMBER {} {}.0", number, number);
+                        println!("DOT . null");
+                    } else {
+                        println!("NUMBER {} {}", number, number);
+                    }
                 } else {
-                    println!("NUMBER {} {}", number, number);
+                    // Integer number, convert to floating point representation
+                    println!("NUMBER {} {}.0", number, number);
                 }
             },
             _ => {
