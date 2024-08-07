@@ -14,6 +14,9 @@ fn tokenize(file_contents: &str) -> i32 {
                 lines += 1;
                 chars.next();
             },
+            ' ' | '\r' | '\t' => {
+                chars.next();
+            },
             '*' => {
                 println!("STAR {} null", character);
                 chars.next();
