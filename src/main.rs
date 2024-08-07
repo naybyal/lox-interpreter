@@ -48,9 +48,8 @@ fn tokenize(file_contents: &str) {
             // '#' => {
             //     println!("[Line {}] Error: Unexpected character: #", lines)
             // },
-            _ => {
-                writeln!(io::stderr(), "[Line {}] Unexpected character: {}", lines, character).unwrap();
-                return;
+            a => {
+                writeln!(io::stderr(), "[Line {}] Unexpected character: {}", lines, a).unwrap();
             }
         }
     }
