@@ -163,7 +163,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     }
                 }
                 let mut lexeme = String::new();
-                lexeme = number;
+                lexeme = number.clone();
                 if is_float && number.ends_with('.') {
                     number.push('0');
                 }
