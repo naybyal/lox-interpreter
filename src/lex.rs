@@ -162,14 +162,13 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                let mut lexeme = String::new();
-                lexeme = number.clone();
                 if is_float && number.ends_with('.') {
-                    number.push('0');
-                    lexeme.pop();
+                    number.pop(); // Remove the trailing dot from the number
+                    println!("NUMBER {} {}", number, format!("{}.0", number));
+                    println!("DOT . null");
+                } else {
+                    println!("NUMBER {} {}", number, number);
                 }
-                    
-                println!("NUMBER {} {}", lexeme, number);
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
