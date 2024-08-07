@@ -3,10 +3,11 @@ use std::fs;
 use std::io::{self, Write};
 
 fn tokenize(file_contents: &str) {
+    let mut lines = 0;
     for character in file_contents.chars() {
         match character {
-            ' ' | '\t' | '\n' => {
-                // Ignore whitespace
+            '\n' => {
+                lines++;
             },
             '*' => {
                 println!("STAR {} null", character);
@@ -29,7 +30,6 @@ fn tokenize(file_contents: &str) {
             ';' => {
                 println!("SEMICOLON {} null", character);
             },
-            
             '(' => {
                 println!("LEFT_PAREN {} null", character);
             },
@@ -41,6 +41,12 @@ fn tokenize(file_contents: &str) {
             },
             '}' => {
                 println!("RIGHT_BRACE {} null", character);
+            },
+            '$' => {
+                pritnln!("[Line {}] Error: Unexpected character: $")
+            },
+            '#' => {
+                pritnln!("[Line {}] Error: Unexpected character: #")
             },
             _ => {
                 writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
