@@ -42,17 +42,13 @@ fn tokenize(file_contents: &str) {
             '}' => {
                 println!("RIGHT_BRACE {} null", character);
             },
-            // '$' => {
-            //     println!("[Line {}] Error: Unexpected character: $", lines)
-            // },
-            // '#' => {
-            //     println!("[Line {}] Error: Unexpected character: #", lines)
-            // },
             a => {
                 writeln!(io::stderr(), "[Line {}] Unexpected character: {}", lines, a).unwrap();
+                return 65;
             }
         }
     }
+    return 0;
 }
 
 fn main() {
