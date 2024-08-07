@@ -156,7 +156,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         chars.next();
                     } else if next_char == '.' && !is_float{
                         is_float = true;
-                        decimal.push(next_char);
+                        number.push(next_char);
                         chars.next();
                     } else {
                         break;
