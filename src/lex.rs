@@ -163,8 +163,8 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     }
                 }
                 if is_float && number.ends_with('.') {
-                    number.pop(); // Remove the trailing dot from the number
-                    println!("NUMBER {} {}", number, format!("{}.0", number));
+                    number.pop(); 
+                    println!("NUMBER {} {}.0", number, number);
                     println!("DOT . null");
                 } else {
                     println!("NUMBER {} {}", number, number);
