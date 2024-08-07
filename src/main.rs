@@ -59,16 +59,29 @@ fn tokenize(file_contents: &str) -> i32 {
                 chars.next();
             },
             '=' => {
-                chars.next(); // consume '='
+                chars.next(); 
                 if let Some(&next_char) = chars.peek() {
                     if next_char == '=' {
-                        chars.next(); // consume second '='
+                        chars.next(); 
                         println!("EQUAL_EQUAL == null");
                     } else {
                         println!("EQUAL = null");
                     }
                 } else {
                     println!("EQUAL = null");
+                }
+            },
+            '!' => {
+                chars.next(); 
+                if let Some(&next_char) = chars.peek() {
+                    if next_char == '=' {
+                        chars.next(); 
+                        println!("BANG_EQUAL != null");
+                    } else {
+                        println!("BANG ! null");
+                    }
+                } else {
+                    println!("BANG ! null");
                 }
             },
             _ => {
