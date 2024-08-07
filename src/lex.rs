@@ -166,6 +166,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                 lexeme = number.clone();
                 if is_float && number.ends_with('.') {
                     number.push('0');
+                    lexeme.pop();
                 }
                     
                 println!("NUMBER {} {}", lexeme, number);
