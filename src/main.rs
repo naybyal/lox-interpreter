@@ -41,13 +41,13 @@ fn main() {
                     //     println!("NUMBER  {}", character);
                     // },
                     '+' | '-' | '*' | '/'  | '=' => {
-                        writeln!("OPERATOR  {}", character).unwrap();
+                        println!("OPERATOR  {}", character).unwrap();
                     },
                     '(' => {
-                        writeln!("LEFT_PAREN {} null", character).unwrap();
+                        println!("LEFT_PAREN {} null", character).unwrap();
                     },
                     ')' => {
-                        writeln!("RIGHT_PAREN {} null", character).unwrap();
+                        println!("RIGHT_PAREN {} null", character).unwrap();
                     },
                     _ => {
                         writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
