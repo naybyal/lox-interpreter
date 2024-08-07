@@ -43,10 +43,10 @@ fn tokenize(file_contents: &str) {
                 println!("RIGHT_BRACE {} null", character);
             },
             '$' => {
-                pritnln!("[Line {}] Error: Unexpected character: $")
+                println!("[Line {}] Error: Unexpected character: $")
             },
             '#' => {
-                pritnln!("[Line {}] Error: Unexpected character: #")
+                println!("[Line {}] Error: Unexpected character: #")
             },
             _ => {
                 writeln!(io::stderr(), "Unknown character: {}", character).unwrap();
