@@ -154,7 +154,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     if next_char.is_digit(10)  {
                         number.push(next_char);
                         chars.next();
-                    } else if next_char == '.'{
+                    } else if next_char == '.' && !is_float{
                         is_float = true;
                         number.push(next_char);
                         chars.next();
