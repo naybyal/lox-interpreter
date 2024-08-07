@@ -162,10 +162,9 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                let mut lexeme = String::new(number);
-
+                let mut lexeme = String::new();
+                lexeme = number;
                 if is_float && number.ends_with('.') {
-                    lexeme = number;
                     number.push('0');
                 }
                     
