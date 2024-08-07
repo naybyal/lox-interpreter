@@ -156,13 +156,17 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         chars.next();
                     } else if next_char == '.' && !is_float{
                         is_float = true;
-                        number.push(next_char);
+                        decimal.push(next_char);
                         chars.next();
                     } else {
                         break;
                     }
                 }
-                println!("NUMBER {} {}", number, number);
+
+                if is_float && number.ends_with('.') 
+                    number.push(0);
+                    
+                println!("NUMBER {} {}.", number, number);
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
