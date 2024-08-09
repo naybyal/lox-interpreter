@@ -68,7 +68,7 @@ pub fn parse(file_contents: &str) -> i32 {
                     let keyword = identifier.to_uppercase();
                     println!("{keyword}");
                 } else {
-                    println!("{identifier}", identifier);
+                    println!("{identifier}");
                 }   
             },
             _ => {
