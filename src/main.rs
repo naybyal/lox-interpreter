@@ -4,6 +4,8 @@ use std::io::{self, Write};
 use std::process::exit;
 
 mod lex;
+mod eval;
+mod parser;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -17,7 +19,7 @@ fn main() {
 
     match command.as_str() {
         "tokenize" => {
-            writeln!(io::stderr(), "Logs from your program will appear here!").unwrap();
+            // writeln!(io::stderr(), "Logsevaluate from your program will appear here!").unwrap();
 
             let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
                 writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
@@ -30,7 +32,42 @@ fn main() {
             } else {
                 println!("EOF  null");
             }
-        }
+        },
+        "parse" => {
+            // writeln!(io::stderr(), "Loevaluategs from your program will appear here!").unwrap();
+
+            let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
+                writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
+                String::new()
+            });
+
+            if !file_contents.is_empty() {
+                let result = lex::tokenize(&file_contents);
+                if result == 0 {
+                    let result = parser::parse(&file_contents);
+                    exit(result);
+                } else {
+                    exit(result);
+                }
+            } else {
+                println!("EOF  null");
+            }
+        },
+        "evaluate" => {
+            writeln!(io::stderr(), "Logs from your program will appear here!").unwrap();
+
+            let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
+                writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
+                String::new()
+            });
+
+            if !file_contents.is_empty() {
+                let result = eval::evaluate(&file_contents);
+                exit(result);
+            } else {
+                println!("EOF  null");
+            }
+        },
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
             return;
