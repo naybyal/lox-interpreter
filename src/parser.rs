@@ -145,7 +145,7 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> i32 {
 
     if unterminated {
         eprintln!("Error: Unmatched parentheses.");
-        65
+        0
     } else {
         0
     }
