@@ -197,7 +197,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                 ];
 
                 if a.contains(&identifier.as_str()) {
-                    println!("KEYWORD {} null", identifier);
+                    println!("{} {} null", identifier, identifier);
                 } else {
                     println!("IDENTIFIER {} null", identifier);
                 }   
