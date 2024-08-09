@@ -78,7 +78,8 @@ pub fn parse(file_contents: &str) -> i32 {
                     if next_char == '\'' || next_char == '\"' {
                         continue;
                     }
-                    else if next_char == ')' {
+                    
+                    if next_char == ')' {
                         chars.next();
                         println!("(group {string})");
                         unterminated = false;
