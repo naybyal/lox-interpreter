@@ -75,24 +75,31 @@ pub fn parse(file_contents: &str) -> i32 {
                 let mut unterminated: bool = true;
 
                 while let Some(&next_char) = chars.peek() {
-                    if next_char == '\'' || next_char == '\"' {
-                        chars.next();
-                        continue;
+                    match next_char {
+                        '(' => {
+                            let inner_result = parse_inner(&mut chars);
+                            if inner_result != 0 {
+                                return inner_result;
+                            }
+                        }
+                        ')' => {
+                            chars.next();
+                            println!("(group {string})");
+                            unterminated = false;
+                            break;
+                        }
+                        '\'' | '\"' => {
+                            chars.next();
+                        }
+                        _ => {
+                            string.push(next_char);
+                            chars.next();
+                        }
                     }
-                    
-                    if next_char == ')' {
-                        chars.next();
-                        println!("(group {string})");
-                        unterminated = false;
-                        break;
-                    }
-                    
-                    string.push(next_char);
-                    chars.next();
                 }
 
                 if unterminated {
-                    eprintln!("Error: Unmatched parantheses.");
+                    eprintln!("Error: Unmatched parentheses.");
                     result = 65;
                 }
             },
@@ -106,3 +113,41 @@ pub fn parse(file_contents: &str) -> i32 {
     }
     result
 }
+
+fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> i32 {
+    let mut string: String = String::new();
+    let mut unterminated: bool = true;
+
+    while let Some(&next_char) = chars.peek() {
+        match next_char {
+            '(' => {
+                chars.next();
+                let inner_result = parse_inner(chars);
+                if inner_result != 0 {
+                    return inner_result;
+                }
+            }
+            ')' => {
+                chars.next();
+                println!("(group {string})");
+                unterminated = false;
+                break;
+            }
+            '\'' | '\"' => {
+                chars.next();
+            }
+            _ => {
+                string.push(next_char);
+                chars.next();
+            }
+        }
+    }
+
+    if unterminated {
+        eprintln!("Error: Unmatched parentheses.");
+        65
+    } else {
+        0
+    }
+}
+
