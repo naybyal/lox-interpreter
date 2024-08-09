@@ -167,7 +167,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                 if is_float {
                     if number.ends_with('0') {
                         let truncated_value = number.pop();
-                        println!("NUMBER {} {}", number, truncated_value.unwrap());
+                        println!("NUMBER {} {}", number, truncated_value);
                     } else if number.ends_with('.') {
                         number.pop();
                         println!("NUMBER {} {}.0", number, number);
