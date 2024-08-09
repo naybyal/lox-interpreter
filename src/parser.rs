@@ -34,7 +34,20 @@ pub fn parse(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-
+                if is_float {
+                    if number.ends_with('0') {
+                        number.pop();
+                        println!("{}0", number);
+                    } else if number.ends_with('.') {
+                        number.pop();
+                        println!("{}.0", number, number);
+                    } else {
+                        let parsed_float: f64 = number.parse().unwrap();
+                        println!("{}", parsed_float);
+                    }
+                } else {
+                    println!("{}.0", number);
+                }
                 println!("{number}")
             },
             _ => {
