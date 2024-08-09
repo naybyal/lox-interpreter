@@ -48,7 +48,6 @@ pub fn parse(file_contents: &str) -> i32 {
                 } else {
                     println!("{}.0", number);
                 }
-                println!("{number}")
             },
             _ => {
                 println!("EOF null");
