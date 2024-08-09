@@ -48,28 +48,29 @@ pub fn parse(file_contents: &str) -> i32 {
                     println!("{}.0", number);
                 }
             },
-            'a'..='z' | 'A'..='Z' | '_' => {
+            '\"'  => {
                 let mut identifier = String::new();
                 while let Some(&next_char) = chars.peek() {
-                    if next_char.is_alphanumeric() || next_char == '_' || next_char == ' '{
+                    if next_char == '\"'{
+                        break;
+                    } else {
                         identifier.push(next_char);
                         chars.next();
-                    } else {
-                        break;
                     }
                 }
-
-                let keywords = [
-                    "and", "class", "else", "false", "for", "fun", "if", "nil", "or",
-                    "print", "return", "super", "this", "true", "var", "while"
-                ];
-
-                if keywords.contains(&identifier.as_str()) {
-                    let keyword = identifier.to_uppercase();
-                    println!("{keyword}");
-                } else {
-                    println!("{identifier}");
-                }   
+                println!("{identifier}");
+            },
+            '\''  => {
+                let mut identifier = String::new();
+                while let Some(&next_char) = chars.peek() {
+                    if next_char == '\''{
+                        break;
+                    } else {
+                        identifier.push(next_char);
+                        chars.next();
+                    }
+                }
+                println!("{identifier}");
             },
             _ => {
                 println!("EOF null");
