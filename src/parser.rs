@@ -100,7 +100,7 @@ pub fn parse(file_contents: &str) -> i32 {
 
                 if unterminated {
                     eprintln!("Error: Unmatched parentheses.");
-                    result = 65;
+                    result = 0;
                 }
             },
             _ => {
