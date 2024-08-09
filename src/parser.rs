@@ -76,6 +76,7 @@ pub fn parse(file_contents: &str) -> i32 {
 
                 while let Some(&next_char) = chars.peek() {
                     if next_char == '\'' || next_char == '\"' {
+                        chars.next();
                         continue;
                     }
                     
@@ -91,7 +92,7 @@ pub fn parse(file_contents: &str) -> i32 {
                 }
 
                 if unterminated {
-                    eprintln!("Error: Unterminated string.");
+                    eprintln!("Error: Unmatched parantheses.");
                     result = 65;
                 }
             },
