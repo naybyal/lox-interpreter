@@ -165,18 +165,29 @@ pub fn tokenize(file_contents: &str) -> i32 {
                 }
 
                 if is_float {
-                    // Floating point number, possibly ending with a dot
                     if number.ends_with('.') {
-                        number.pop(); // Remove the trailing dot
+                        number.pop();
                         println!("NUMBER {} {}.0", number, number);
                         println!("DOT . null");
                     } else {
-                        println!("NUMBER {} {}", number, number);
+                        let parsed_float: f64 = number.parse().unwrap();
+                        println!("NUMBER {} {}", number, parsed_float);
                     }
                 } else {
-                    // Integer number, convert to floating point representation
                     println!("NUMBER {} {}.0", number, number);
                 }
+            },
+            'a'..='z' | 'A'..='Z' | '_' => {
+                let mut identifier = String::new();
+                while let Some(&next_char) = chars.peek() {
+                    if next_char.is_alphanumeric() || next_char == '_' {
+                        identifier.push(next_char);
+                        chars.next();
+                    } else {
+                        break;
+                    }
+                }
+                println!("IDENTIFIER {} null", identifier);   
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
