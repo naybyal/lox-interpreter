@@ -16,7 +16,7 @@ fn main() {
     let command = &args[1];
     let filename = &args[2];
 
-    writeln!(io::stderr(), "Logsevaluate from your program will appear here!").unwrap();
+    writeln!(io::stderr(), "Logs evaluated from the program will appear here!").unwrap();
     match command.as_str() {
         "tokenize" => {
 
@@ -39,13 +39,8 @@ fn main() {
             });
 
             if !file_contents.is_empty() {
-                let result = lex::tokenize(&file_contents);
-                if result == 0 {
-                    let result = parser::parse(&file_contents);
-                    exit(result);
-                } else {
-                    exit(result);
-                }
+                let result = parser::parse(&file_contents);
+                exit(result);
             } else {
                 println!("EOF  null");
             }
