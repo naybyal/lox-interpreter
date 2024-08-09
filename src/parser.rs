@@ -56,7 +56,7 @@ pub fn parse(file_contents: &str) -> i32 {
                 while let Some(&next_char) = chars.peek() {
                     if next_char == '\"' {
                         chars.next();
-                        println!("\"{string}\"");
+                        println!("{string}");
                         unterminated = false;
                         break;
                     }
