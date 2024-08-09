@@ -167,7 +167,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                 if is_float {
                     if number.ends_with('0') {
                         number.pop();
-                        println!("NUMBER {}0 {}0", number, number);
+                        println!("NUMBER {}0 {}", number, number);
                     } else if number.ends_with('.') {
                         number.pop();
                         println!("NUMBER {} {}.0", number, number);
