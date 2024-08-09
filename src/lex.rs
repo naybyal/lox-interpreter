@@ -174,7 +174,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         println!("NUMBER {} {}", number, parsed_float);
                     }
                 } else {
-                    println!("NUMBER {} {}.0", number, number);
+                    println!("NUMBER {} {}", number, number as f64);
                 }
             },
             'a'..='z' | 'A'..='Z' | '_' => {
