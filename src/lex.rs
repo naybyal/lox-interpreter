@@ -190,7 +190,7 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                // Keywords
+
                 let keywords = [
                     "and", "class", "else", "false", "for", "fun", "if", "nil", "or",
                     "print", "return", "super", "this", "true", "var", "while"

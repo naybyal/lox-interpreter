@@ -17,9 +17,9 @@ fn main() {
     let command = &args[1];
     let filename = &args[2];
 
+    writeln!(io::stderr(), "Logsevaluate from your program will appear here!").unwrap();
     match command.as_str() {
         "tokenize" => {
-            // writeln!(io::stderr(), "Logsevaluate from your program will appear here!").unwrap();
 
             let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
                 writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
@@ -34,8 +34,6 @@ fn main() {
             }
         },
         "parse" => {
-            // writeln!(io::stderr(), "Loevaluategs from your program will appear here!").unwrap();
-
             let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
                 writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
                 String::new()
@@ -54,8 +52,6 @@ fn main() {
             }
         },
         // "evaluate" => {
-        //     writeln!(io::stderr(), "Logs from your program will appear here!").unwrap();
-
         //     let file_contents = fs::read_to_string(filename).unwrap_or_else(|_| {
         //         writeln!(io::stderr(), "Failed to read file {}", filename).unwrap();
         //         String::new()
