@@ -190,7 +190,17 @@ pub fn tokenize(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                println!("IDENTIFIER {} null", identifier);   
+                // Keywords
+                let a = [
+                    "and", "class", "else", "false", "for", "fun", "if", "nil", "or",
+                    "print", "return", "super", "this", "true", "var", "while"
+                ];
+
+                if a.contains(&identifier.as_str()) {
+                    println!("KEYWORD {} null", identifier);
+                } else {
+                    println!("IDENTIFIER {} null", identifier);
+                }   
             },
             _ => {
                 eprintln!("[line {}] Error: Unexpected character: {}", lines, character);
