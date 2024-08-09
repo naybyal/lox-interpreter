@@ -48,29 +48,26 @@ pub fn parse(file_contents: &str) -> i32 {
                     println!("{}.0", number);
                 }
             },
-            '\"'  => {
-                let mut identifier = String::new();
+            '\"' => {
+                chars.next();
+                let mut string = String::new();
+                let mut unterminated = true;
+
                 while let Some(&next_char) = chars.peek() {
-                    if next_char == '\"'{
-                        break;
-                    } else {
-                        identifier.push(next_char);
+                    if next_char == '\"' {
                         chars.next();
-                    }
-                }
-                println!("{identifier}");
-            },
-            '\''  => {
-                let mut identifier = String::new();
-                while let Some(&next_char) = chars.peek() {
-                    if next_char == '\''{
+                        println!("\"{}\"", string);
+                        unterminated = false;
                         break;
-                    } else {
-                        identifier.push(next_char);
-                        chars.next();
                     }
+                    
+                    string.push(next_char);
+                    chars.next();
                 }
-                println!("{identifier}");
+
+                if unterminated {
+                    result = 65;
+                }
             },
             _ => {
                 println!("EOF null");
