@@ -191,13 +191,14 @@ pub fn tokenize(file_contents: &str) -> i32 {
                     }
                 }
                 // Keywords
-                let a = [
+                let keyrwords = [
                     "and", "class", "else", "false", "for", "fun", "if", "nil", "or",
                     "print", "return", "super", "this", "true", "var", "while"
                 ];
 
-                if a.contains(&identifier.as_str()) {
-                    println!("{} {} null", identifier, identifier);
+                if keyrwords.contains(&identifier.as_str()) {
+                    let keyword = identifier.to_uppercase();
+                    println!("{} {} null", keyword, identifier);
                 } else {
                     println!("IDENTIFIER {} null", identifier);
                 }   
