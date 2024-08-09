@@ -51,7 +51,7 @@ pub fn parse(file_contents: &str) -> i32 {
             'a'..='z' | 'A'..='Z' | '_' => {
                 let mut identifier = String::new();
                 while let Some(&next_char) = chars.peek() {
-                    if next_char.is_alphanumeric() || next_char == '_' {
+                    if next_char.is_alphanumeric() || next_char == '_' || next_char == ' '{
                         identifier.push(next_char);
                         chars.next();
                     } else {
@@ -66,9 +66,9 @@ pub fn parse(file_contents: &str) -> i32 {
 
                 if keywords.contains(&identifier.as_str()) {
                     let keyword = identifier.to_uppercase();
-                    println!("{}", keyword);
+                    println!("{keyword}");
                 } else {
-                    println!("{}", identifier);
+                    println!("{identifier}", identifier);
                 }   
             },
             _ => {
