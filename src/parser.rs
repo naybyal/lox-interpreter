@@ -77,10 +77,8 @@ pub fn parse(file_contents: &str) -> i32 {
                 while let Some(&next_char) = chars.peek() {
                     match next_char {
                         '(' => {
-                            let inner_result = parse_inner(&mut chars);
-                            if inner_result != 0 {
-                                return inner_result;
-                            }
+                            let inner_group = parse_inner(&mut chars);
+                            string.push_str(&inner_group);
                         }
                         ')' => {
                             chars.next();
@@ -109,12 +107,11 @@ pub fn parse(file_contents: &str) -> i32 {
                 break;
             }
         }
-        
     }
     result
 }
 
-fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> i32 {
+fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> String {
     let mut string: String = String::new();
     let mut unterminated: bool = true;
 
@@ -122,14 +119,11 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> i32 {
         match next_char {
             '(' => {
                 chars.next();
-                let inner_result = parse_inner(chars);
-                if inner_result != 0 {
-                    return inner_result;
-                }
+                let inner_group = parse_inner(chars);
+                string.push_str(&format!("(group {})", inner_group));
             }
             ')' => {
                 chars.next();
-                println!("(group {string})");
                 unterminated = false;
                 break;
             }
@@ -145,9 +139,7 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> i32 {
 
     if unterminated {
         eprintln!("Error: Unmatched parentheses.");
-        0
-    } else {
-        0
     }
-}
 
+    string
+}
