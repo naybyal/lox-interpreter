@@ -1,14 +1,14 @@
-pub let literals = [
+pub const literals = [
     "true", "false", "nil"
 ];
 
 pub fn parse(file_contents: &str) -> i32 {
+    let mut result = 0;
     let mut chars = file_contents.chars().peekable();
 
     while let Some(&char = chars.peek()) {
         match char {
             'a'..='z' | 'A'..='Z' => {
-                
                 let mut identifier = String::new();
                 while let Some(&char) = chars.peek() {
                     if char.is_alphanumeric() {
@@ -18,7 +18,6 @@ pub fn parse(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-
                 if literals.contains(&identifier) {
                     println!("{}", identifier);
                 }
@@ -26,4 +25,7 @@ pub fn parse(file_contents: &str) -> i32 {
             },
         }
     }
+
+    println!("EOF  null");
+    result
 }

@@ -4,7 +4,6 @@ use std::io::{self, Write};
 use std::process::exit;
 
 mod lex;
-mod eval;
 mod parser;
 
 fn main() {
