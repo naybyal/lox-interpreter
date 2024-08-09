@@ -19,30 +19,31 @@ pub fn parse(file_contents: &str) -> i32 {
                     println!("{identifier}");
                 }
             },
+            '0'..='9' => {
+                let mut number = String::new();
+                let mut is_float = String::new();
+                while let Some(&next_char) = chars.peek() {
+                    if next_char.is_digit(10) {
+                        number.push(next_char);
+                        chars.next();
+                    } else if next_char == '.' && !is_float {
+                        is_float = true;
+                        number.push(next_char);
+                        chars.next();
+                    } else {
+                        break;
+                    }
+                }
+
+                println!("{number}")
+            },
             _ => {
                 println!("EOF null");
                 result = 0;
                 break;
             }
         }
-        '0'..='9' => {
-            let mut number = String::new();
-            let mut is_float = String::new();
-            while let Some(&next_char) = chars.peek() {
-                if next_char.is_digit(10) {
-                    number.push(next_char);
-                    chars.next();
-                } else if next_char == '.' && !is_float {
-                    is_float = true;
-                    number.push(next_char);
-                    chars.next();
-                } else {
-                    break;
-                }
-            }
-
-            println!("{number}")
-        }
+        
     }
     result
 }
