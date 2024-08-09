@@ -21,7 +21,7 @@ pub fn parse(file_contents: &str) -> i32 {
             },
             '0'..='9' => {
                 let mut number = String::new();
-                let mut is_float = String::new();
+                let mut is_float = false;
                 while let Some(&next_char) = chars.peek() {
                     if next_char.is_digit(10) {
                         number.push(next_char);
