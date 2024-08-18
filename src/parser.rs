@@ -1,11 +1,11 @@
 pub fn parse(file_contents: &str) -> i32 {
-    let mut result: i32 = 0;
-    let mut chars: std::iter::Peekable<std::str::Chars> = file_contents.chars().peekable();
+    let result: i32 = 0;
+    let mut chars = file_contents.chars().peekable();
 
     while let Some(&char) = chars.peek() {
         match char {
             'a'..='z' | 'A'..='Z' => {
-                let mut identifier: String = String::new();
+                let mut identifier = String::new();
                 while let Some(&char) = chars.peek() {
                     if char.is_alphanumeric() {
                         identifier.push(char);
@@ -14,14 +14,14 @@ pub fn parse(file_contents: &str) -> i32 {
                         break;
                     }
                 }
-                let literals: [&str; 3] = ["true", "false", "nil"];
+                let literals = ["true", "false", "nil"];
                 if literals.contains(&identifier.as_str()) {
-                    println!("{identifier}");
+                    println!("{}", identifier);
                 }
             },
             '0'..='9' => {
-                let mut number: String = String::new();
-                let mut is_float: bool = false;
+                let mut number = String::new();
+                let mut is_float = false;
                 while let Some(&next_char) = chars.peek() {
                     if next_char.is_digit(10) {
                         number.push(next_char);
@@ -50,13 +50,13 @@ pub fn parse(file_contents: &str) -> i32 {
             },
             '\"' => {
                 chars.next();
-                let mut string: String = String::new();
-                let mut unterminated: bool = true;
+                let mut string = String::new();
+                let mut unterminated = true;
 
                 while let Some(&next_char) = chars.peek() {
                     if next_char == '\"' {
                         chars.next();
-                        println!("{string}");
+                        println!("{}", string);
                         unterminated = false;
                         break;
                     }
@@ -66,44 +66,20 @@ pub fn parse(file_contents: &str) -> i32 {
                 }
 
                 if unterminated {
-                    result = 65;
+                    eprintln!("Error: Unterminated string.");
+                    return 65;
                 }
             },
             '(' => {
                 chars.next();
-                let mut string: String = String::new();
-                let mut unterminated: bool = true;
-
-                while let Some(&next_char) = chars.peek() {
-                    match next_char {
-                        '(' => {
-                            let inner_group = parse_inner(&mut chars);
-                            string.push_str(&inner_group);
-                        }
-                        ')' => {
-                            chars.next();
-                            println!("(group {string})");
-                            unterminated = false;
-                            break;
-                        }
-                        '\'' | '\"' => {
-                            chars.next();
-                        }
-                        _ => {
-                            string.push(next_char);
-                            chars.next();
-                        }
-                    }
+                let group = parse_inner(&mut chars);
+                if group.is_none() {
+                    return 65;
                 }
-
-                if unterminated {
-                    eprintln!("Error: Unmatched parentheses.");
-                    result = 0;
-                }
+                println!("(group {})", group.unwrap());
             },
             _ => {
                 println!("EOF null");
-                result = 0;
                 break;
             }
         }
@@ -111,16 +87,19 @@ pub fn parse(file_contents: &str) -> i32 {
     result
 }
 
-fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> String {
-    let mut string: String = String::new();
-    let mut unterminated: bool = true;
+fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> Option<String> {
+    let mut string = String::new();
+    let mut unterminated = true;
 
     while let Some(&next_char) = chars.peek() {
         match next_char {
             '(' => {
                 chars.next();
-                let inner_group = parse_inner(chars);
-                string.push_str(&format!("(group {})", inner_group));
+                if let Some(inner_group) = parse_inner(chars) {
+                    string.push_str(&format!("(group {})", inner_group));
+                } else {
+                    return None;
+                }
             }
             ')' => {
                 chars.next();
@@ -139,7 +118,8 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> String {
 
     if unterminated {
         eprintln!("Error: Unmatched parentheses.");
+        return None;
     }
 
-    string
+    Some(string)
 }
