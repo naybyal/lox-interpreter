@@ -86,11 +86,10 @@ pub fn parse(file_contents: &str) -> i32 {
     }
     result
 }
-
 fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> Option<String> {
     let mut string = String::new();
     let mut unterminated = true;
-    let mut empty_group = true; // Track if the group is empty
+    let mut empty_group = true; 
 
     while let Some(&next_char) = chars.peek() {
         match next_char {
@@ -101,7 +100,7 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> Option<Strin
                 } else {
                     return None;
                 }
-                empty_group = false; // Not empty since we found inner content
+                empty_group = false; 
             }
             ')' => {
                 chars.next();
@@ -110,12 +109,12 @@ fn parse_inner(chars: &mut std::iter::Peekable<std::str::Chars>) -> Option<Strin
             }
             '\'' | '\"' => {
                 chars.next();
-                empty_group = false; // Not empty since we found content
+                empty_group = false; 
             }
             _ => {
                 string.push(next_char);
                 chars.next();
-                empty_group = false; // Not empty since we found content
+                empty_group = false; 
             }
         }
     }
